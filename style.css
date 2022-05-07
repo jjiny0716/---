@@ -1,0 +1,91 @@
+:root {
+  --color-red: #FF3B30;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* calendar */
+.calendar {
+  max-width: 1000px;
+  aspect-ratio: 1.5;
+  padding: 20px;
+}
+
+.holyday {
+  color: var(--color-red);
+}
+
+.calendar .header {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.calendar .header .month-controls {
+  width: 100%;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #bbb;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar .header .month-controls button {
+  width: 50px;
+  height: 50px;
+  font-size: 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #777;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+
+.calendar .header .month-controls button:hover {
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.calendar .header .month-controls .current-date {
+  font-size: 1.9rem;
+  line-height: 50px;
+}
+
+.calendar .header .month-labels {
+  width: 100%;
+  font-size: 1.33rem;
+  font-weight: 500;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar .date-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 6px;
+} 
+
+.calendar .date-grid .date-cell {
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #f3f3f3;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.calendar .date-grid .date-cell.blur {
+  opacity: 0.4;
+}
