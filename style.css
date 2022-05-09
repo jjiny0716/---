@@ -1,17 +1,22 @@
 :root {
-  --color-red: #FF3B30;
+  --color-light-black: #333;
+  --color-red: #ff3b30;
+  --color-blue: #0a84ff;
+  --shadow-light: 0 0 12px rgba(0, 0, 0, 0.2);
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
-/* calendar */
+/* Calendar */
 .calendar {
   max-width: 1000px;
   aspect-ratio: 1.5;
@@ -50,7 +55,7 @@ body {
 
 .calendar .header .month-controls button:hover {
   border-color: rgba(0, 0, 0, 0.2);
-  color: #333;
+  color: var(--color-light-black);
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -76,7 +81,7 @@ body {
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
   gap: 6px;
-} 
+}
 
 .calendar .date-grid .date-cell {
   padding: 6px;
@@ -88,4 +93,177 @@ body {
 
 .calendar .date-grid .date-cell.blur {
   opacity: 0.4;
+}
+
+/* TransactionAddButton */
+.transaction-add-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--shadow-light);
+  font-size: 1.7rem;
+  color: var(--color-light-black);
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 250ms ease;
+}
+
+.transaction-add-button:hover {
+  background-color: #f3f3f3;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  padding: 30px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* TransactionAddModal */
+.transaction-add-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+/* font-family: 'Noto Sans KR', sans-serif; */
+
+.transaction-add-modal .type-buttons {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.transaction-add-modal .type-buttons button {
+  width: 120px;
+  height: 40px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  margin: 0 5px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #bbb;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.transaction-add-modal .type-buttons button:active {
+  transform: scale(0.96);
+}
+
+.transaction-add-modal .type-buttons .income.active {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+  background-color: #fff;
+}
+
+.transaction-add-modal .type-buttons .expenditure.active {
+  border-color: var(--color-red);
+  color: var(--color-red);
+  background-color: #fff;
+}
+
+.transaction-add-modal .transaction-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-add-modal .transaction-form .form-input {
+  margin-bottom: 10px;
+}
+
+.transaction-add-modal .transaction-form .form-input label {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.transaction-add-modal .transaction-form .form-input input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.transaction-add-modal .transaction-form .save-button {
+  height: 50px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 25px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #fff;
+  background-color: var(--color-blue);
+  cursor: pointer;
+}
+
+.transaction-add-modal .close-modal-button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  border: none;
+  font-size: 1.2rem;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.transaction-add-modal.shaking {
+  animation: shake 500ms;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-1deg);
+  }
+  20% {
+    transform: rotate(1deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  70% {
+    transform: rotate(-1deg);
+  }
+  80% {
+    transform: rotate(1deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-1deg);
+  }
 }
