@@ -1,5 +1,8 @@
 import Component from "../core/Component.js";
 
+import { store } from "../../store/store.js";
+import { addTransaction } from "../../store/transaction/transaction.action.js";
+
 export default class TransactionAddModal extends Component {
   setup() {
     this.state = {
@@ -13,6 +16,7 @@ export default class TransactionAddModal extends Component {
 
   template() {
     const { shaking, type } = this.state;
+    console.log(store.getState().transaction);
 
     return `
     <div class="modal-overlay">
@@ -24,15 +28,15 @@ export default class TransactionAddModal extends Component {
         <form class="transaction-form">
           <div class="form-input">
             <label for="date">날짜</label>
-            <input type="date" class="date" name="date" id="date" />
+            <input type="date" class="date" name="date" id="date" required />
           </div>
           <div class="form-input">
             <label for="amount">금액</label>
-            <input type="text" class="amount" name="amount" id="amount" maxlength="12" autocomplete="off" />
+            <input type="text" class="amount" name="amount" id="amount" maxlength="12" autocomplete="off" required />
           </div>
           <div class="form-input">
             <label for="title">내용</label>
-            <input type="text" class="title" name="title" id="title" maxlength="15" />
+            <input type="text" class="title" name="title" id="title" maxlength="15" required />
           </div>
           <button type="submit" class="save-button">저장하기</button>
         </form>
@@ -79,6 +83,21 @@ export default class TransactionAddModal extends Component {
     // 저장하기
     this.addEventListener("submit", ".transaction-form", (e) => {
       e.preventDefault();
+      const { type, date: fulldate, amount, title } = this.state;
+      const [year, month, date] = fulldate.split("-");
+      const { transactionData } = store.getState().transaction;
+
+      store.dispatch(
+        addTransaction({
+          transactionData,
+          year,
+          month,
+          date,
+          type,
+          amount,
+          title,
+        })
+      );
 
       closeTransactionAddModal();
     });

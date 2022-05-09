@@ -15,9 +15,11 @@ export default class App extends Component {
     const { isTransactionAddModalOpen } = this.state;
 
     return `
-    <div class="calendar" data-component="Calendar"></div>
-    <button class="transaction-add-button" data-component="TransactionAddButton"></button>
-    ${isTransactionAddModalOpen ? `<div data-component="TransactionAddModal"></div>` : ""}
+    <div class="wrap">
+      <div class="calendar" data-component="Calendar"></div>
+      <button class="transaction-add-button" data-component="TransactionAddButton"></button>
+      ${isTransactionAddModalOpen ? `<div data-component="TransactionAddModal"></div>` : ""}
+    </div>
     `;
   }
 

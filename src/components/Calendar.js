@@ -1,5 +1,7 @@
 import Component from "../core/Component.js";
 
+import { store } from '../../store/store.js';
+
 export default class Calendar extends Component {
   setup() {
     this.state = {
@@ -10,7 +12,7 @@ export default class Calendar extends Component {
 
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth();
+    const currentMonth = currentDate.getMonth() + 1;
     this.setDateInfo(currentYear, currentMonth);
   }
 
@@ -22,7 +24,7 @@ export default class Calendar extends Component {
       <div class="month-controls">
         <button class="prev"><i class="fa-solid fa-chevron-left"></i></button>
         <span class="current-date">  
-          ${year}년 ${month + 1}월
+          ${year}년 ${month}월
         </span>
         <button class="next"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
@@ -35,6 +37,7 @@ export default class Calendar extends Component {
         .map(
           ({ isCurrentMonth, date }, i) => `<div class="date-cell ${isCurrentMonth ? "" : "blur"}">
         <span class="date-label ${i % 7 === 0 ? "holyday" : ""}">${date}</span>
+        <div class="amount-labels">${this.createTransactionLabelsOfDate(isCurrentMonth, date)}</div>
       </div>`
         )
         .join("")}
@@ -51,11 +54,11 @@ export default class Calendar extends Component {
   }
 
   setDateInfo(year, month) {
-    const prevMonthLastDay = new Date(year, month, 0);
+    const prevMonthLastDay = new Date(year, month - 1, 0);
     const prevLastDate = prevMonthLastDay.getDate();
     const prevLastDay = prevMonthLastDay.getDay();
 
-    const currentMonthLastDay = new Date(year, month + 1, 0);
+    const currentMonthLastDay = new Date(year, month, 0);
     const currentLastDate = currentMonthLastDay.getDate();
 
     // 달력에 표시할 date 생성(42개)
@@ -86,17 +89,40 @@ export default class Calendar extends Component {
 
     this.setState({
       year,
-      month,
+      month: month,
       dateList,
     });
+  }
+
+  createTransactionLabelsOfDate(isCurrentMonth, date) {
+    const { year, month } = this.state;
+    const { transactionData } = store.getState().transaction;
+
+    if (!isCurrentMonth || !transactionData[year] || !transactionData[year][month] || !transactionData[year][month][date]) return "";
+
+    const transactionListOfDate = transactionData[year][month][date]
+    const total = {
+      income: 0,
+      expenditure: 0,
+    }
+
+    for (let { type, amount } of transactionListOfDate) {
+      total[type] += Number(amount);
+    }
+
+    return `
+    ${total.income ? `<span class="income-label">${total.income}</span>` : ""}
+    ${total.expenditure ? `<span class="expenditure-label">-${total.expenditure}</span>` : ""}
+    ${total.income && total.expenditure ? `<span class="total-label">${total.income - total.expenditure}</span>` : ""}
+    `
   }
 
   prevMonth() {
     let { year, month } = this.state;
     month -= 1;
-    if (month === -1) {
+    if (month === 0) {
       year--;
-      month = 11;
+      month = 12;
     }
 
     this.setDateInfo(year, month);
@@ -105,9 +131,9 @@ export default class Calendar extends Component {
   nextMonth() {
     let { year, month } = this.state;
     month += 1;
-    if (month === 12) {
+    if (month === 13) {
       year++;
-      month = 0;
+      month = 1;
     }
 
     this.setDateInfo(year, month);

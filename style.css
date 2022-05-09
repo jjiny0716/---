@@ -16,8 +16,15 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
+.wrap {
+  width: 100%;
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
 /* Calendar */
 .calendar {
+  margin: auto;
   max-width: 1000px;
   aspect-ratio: 1.5;
   padding: 20px;
@@ -89,6 +96,23 @@ body {
   background-color: #f3f3f3;
   font-size: 0.9rem;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.calendar .date-grid .date-cell .amount-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.calendar .date-grid .date-cell .income-label {
+  color: var(--color-blue);
+}
+
+.calendar .date-grid .date-cell .expenditure-label {
+  color: var(--color-red);
 }
 
 .calendar .date-grid .date-cell.blur {
