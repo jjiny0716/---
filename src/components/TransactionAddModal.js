@@ -16,7 +16,6 @@ export default class TransactionAddModal extends Component {
 
   template() {
     const { shaking, type } = this.state;
-    console.log(store.getState().transaction);
 
     return `
     <div class="modal-overlay">
@@ -48,7 +47,7 @@ export default class TransactionAddModal extends Component {
 
   setEvents() {
     const { closeTransactionAddModal } = this.props;
-    // 오버레이 클릭시 종료
+    // 오버레이 클릭시 흔들림
     this.addEventListener("click", ".modal-overlay", (e) => {
       if (e.target.classList.contains("modal-overlay")) {
         this.shaking();
