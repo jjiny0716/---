@@ -18,12 +18,37 @@ body {
 
 .wrap {
   width: 100%;
-  /* display: flex; */
-  /* justify-content: center; */
+}
+
+/* Header */
+.Header {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.Header a {
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #999;
+  transition: all 250ms ease;
+}
+
+.Header a.active,
+.Header a:hover {
+  color: var(--color-light-black);
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.Header a i {
+  margin-right: 3px;
 }
 
 /* Calendar */
-.calendar {
+.Calendar {
   margin: auto;
   max-width: 1000px;
   aspect-ratio: 1.5;
@@ -34,21 +59,19 @@ body {
   color: var(--color-red);
 }
 
-.calendar .header {
+.Calendar .header {
   width: 100%;
   margin-bottom: 25px;
 }
 
-.calendar .header .month-controls {
+.Calendar .header .month-controls {
   width: 100%;
-  padding-bottom: 25px;
-  border-bottom: 1px solid #bbb;
   margin-bottom: 25px;
   display: flex;
   justify-content: space-between;
 }
 
-.calendar .header .month-controls button {
+.Calendar .header .month-controls button {
   width: 50px;
   height: 50px;
   font-size: 1.4rem;
@@ -60,18 +83,18 @@ body {
   transition: all 250ms ease;
 }
 
-.calendar .header .month-controls button:hover {
+.Calendar .header .month-controls button:hover {
   border-color: rgba(0, 0, 0, 0.2);
   color: var(--color-light-black);
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.calendar .header .month-controls .current-date {
+.Calendar .header .month-controls .current-date {
   font-size: 1.9rem;
   line-height: 50px;
 }
 
-.calendar .header .month-labels {
+.Calendar .header .month-labels {
   width: 100%;
   font-size: 1.33rem;
   font-weight: 500;
@@ -81,7 +104,7 @@ body {
   gap: 6px;
 }
 
-.calendar .date-grid {
+.Calendar .date-grid {
   width: 100%;
   height: 100%;
   display: grid;
@@ -90,7 +113,7 @@ body {
   gap: 6px;
 }
 
-.calendar .date-grid .date-cell {
+.Calendar .date-grid .date-cell {
   padding: 6px;
   border-radius: 6px;
   background-color: #f3f3f3;
@@ -101,21 +124,21 @@ body {
   justify-content: space-between;
 }
 
-.calendar .date-grid .date-cell .amount-labels {
+.Calendar .date-grid .date-cell .amount-labels {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 
-.calendar .date-grid .date-cell .income-label {
+.Calendar .date-grid .date-cell .income-label {
   color: var(--color-blue);
 }
 
-.calendar .date-grid .date-cell .expenditure-label {
+.Calendar .date-grid .date-cell .expenditure-label {
   color: var(--color-red);
 }
 
-.calendar .date-grid .date-cell.blur {
+.Calendar .date-grid .date-cell.blur {
   opacity: 0.4;
 }
 

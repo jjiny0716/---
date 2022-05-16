@@ -1,4 +1,4 @@
-import { createStore } from "../src/core/createStore.js";
+import { createStore } from "../core/createStore.js";
 
 import { rootReducer } from "./rootReducer.js";
 

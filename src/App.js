@@ -1,6 +1,7 @@
 import Component from "./core/Component.js";
 
-import Calendar from "./components/Calendar.js";
+import Header from "./components/Header.js";
+import Main from "./components/Main.js";
 import TransactionAddButton from "./components/TransactionAddButton.js";
 import TransactionAddModal from "./components/TransactionAddModal.js";
 
@@ -16,7 +17,8 @@ export default class App extends Component {
 
     return `
     <div class="wrap">
-      <div class="calendar" data-component="Calendar"></div>
+      <header class="Header" data-component="Header"></header>
+      <main class="Main" data-component="Main"></main>
       <button class="transaction-add-button" data-component="TransactionAddButton"></button>
       ${isTransactionAddModalOpen ? `<div data-component="TransactionAddModal"></div>` : ""}
     </div>
@@ -25,8 +27,10 @@ export default class App extends Component {
 
   generateChildComponent(target, name) {
     switch (name) {
-      case "Calendar":
-        return new Calendar(target);
+      case "Header":
+        return new Header(target);
+      case "Main":
+        return new Main(target);
       case "TransactionAddButton":
         return new TransactionAddButton(target, () => {
           const { openTransactionAddModal } = this;

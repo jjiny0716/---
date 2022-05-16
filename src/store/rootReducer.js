@@ -1,4 +1,4 @@
-import { combineReducers } from "../src/core/combineReducers.js";
+import { combineReducers } from "../core/combineReducers.js";
 
 import { transactionReducer } from "./transaction/transaction.reducer.js";
 

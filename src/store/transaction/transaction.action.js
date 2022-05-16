@@ -1,5 +1,5 @@
 import { TRANSACTION_ACTION_TYPES } from "./transaction.types.js";
-import { createAction } from "../../src/core/utils/createAction.js";
+import { createAction } from "../../core/utils/createAction.js";
 
 export function addTransaction({ transactionData, year, month, date, type, amount, title }) {
   return createAction(TRANSACTION_ACTION_TYPES.SET_TRANSACTION_DATA, addTransactionHelper({ transactionData, year, month, date, type, amount, title }));

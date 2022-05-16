@@ -1,7 +1,7 @@
 import Component from "../core/Component.js";
 
-import { store } from "../../store/store.js";
-import { addTransaction } from "../../store/transaction/transaction.action.js";
+import { store } from "../store/store.js";
+import { addTransaction } from "../store/transaction/transaction.action.js";
 
 export default class TransactionAddModal extends Component {
   setup() {

@@ -1,6 +1,6 @@
 import Component from "../core/Component.js";
 
-import { store } from '../../store/store.js';
+import { store } from '../store/store.js';
 
 export default class Calendar extends Component {
   setup() {
