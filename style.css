@@ -47,10 +47,67 @@ body {
   margin-right: 3px;
 }
 
+/* Main */
+.Main {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TransactionList */
+.TransactionList form input {
+  padding: 6px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.TransactionList form span {
+  margin: 0 5px;
+  font-size: 1.5rem;
+}
+
+/* TransactionListOfDay */
+.TransactionListOfDay {
+
+}
+
+.TransactionListOfDay .date {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--color-light-black);
+}
+
+/* TransactionBox */
+.TransactionBox {
+  padding: 12px 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 1.1rem;
+  color: var(--color-light-black);
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.TransactionBox .amount {
+
+}
+
+.TransactionBox .amount.income {
+  color: var(--color-blue);
+}
+
+.TransactionBox .amount.expenditure {
+  color: var(--color-red);
+}
+
 /* Calendar */
 .Calendar {
-  margin: auto;
-  max-width: 1000px;
+  width: 1000px;
   aspect-ratio: 1.5;
   padding: 20px;
 }
