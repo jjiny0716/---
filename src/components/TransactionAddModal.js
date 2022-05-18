@@ -9,6 +9,7 @@ export default class TransactionAddModal extends Component {
       shaking: false,
       type: "expenditure",
       date: "",
+      category: "",
       amount: "",
       title: "",
     };
@@ -28,6 +29,10 @@ export default class TransactionAddModal extends Component {
           <div class="form-input">
             <label for="date">날짜</label>
             <input type="date" class="date" name="date" id="date" required />
+          </div>
+          <div class="form-input">
+            <label for="category">분류</label>
+            <input type="category" class="category" name="category" id="category" autocomplete="off" required />
           </div>
           <div class="form-input">
             <label for="amount">금액</label>
@@ -92,6 +97,7 @@ export default class TransactionAddModal extends Component {
           year,
           month,
           date,
+          category,
           type,
           amount,
           title,

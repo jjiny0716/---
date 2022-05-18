@@ -5,7 +5,7 @@ export function addTransaction({ transactionData, year, month, date, type, amoun
   return createAction(TRANSACTION_ACTION_TYPES.SET_TRANSACTION_DATA, addTransactionHelper({ transactionData, year, month, date, type, amount, title }));
 }
 
-function addTransactionHelper({ transactionData, year, month, date, type, amount, title }) {
+function addTransactionHelper({ transactionData, year, month, date, type, category, amount, title }) {
   // leading zero 제거
   month = parseInt(month, 10).toString();
   date = parseInt(date, 10).toString();
@@ -15,7 +15,7 @@ function addTransactionHelper({ transactionData, year, month, date, type, amount
   if (!transactionData[year][month]) transactionData[year][month] = {};
   if (!transactionData[year][month][date]) transactionData[year][month][date] = [];
 
-  transactionData[year][month][date].push({ type, amount: Number(amount), title });
+  transactionData[year][month][date].push({ type, category, amount: Number(amount), title });
 
   return { ...transactionData };
 }
