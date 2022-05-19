@@ -71,7 +71,6 @@ body {
 
 /* TransactionListOfDay */
 .TransactionListOfDay {
-
 }
 
 .TransactionListOfDay .date {
@@ -94,7 +93,6 @@ body {
 }
 
 .TransactionBox .amount {
-
 }
 
 .TransactionBox .amount.income {
@@ -243,6 +241,7 @@ body {
 
 /* TransactionAddModal */
 .transaction-add-modal {
+  width: 450px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -370,4 +369,34 @@ body {
   100% {
     transform: rotate(-1deg);
   }
+}
+
+
+/* KeywordsBox */
+.KeywordBox {
+  padding: 5px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.KeywordBox .round-box {
+  padding: 3px 6px;
+  border: 2px solid #000;
+  border-radius: 6px;
+  margin: 5px 0;
+  font-size: 1.2rem;
+  background-color: #f3f3f3;
+  cursor: pointer;
+}
+
+.KeywordBox .round-box:not(:last-child) {
+  margin-right: 10px;
+}
+
+.KeywordBox .round-box.active {
+  color: #fff;
+  background-color: #000;
 }

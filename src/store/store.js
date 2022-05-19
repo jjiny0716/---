@@ -4,7 +4,7 @@ import { rootReducer } from "./rootReducer.js";
 
 const persistConfig = {
   key: "root",
-  whitelist: ["transaction"],
+  whitelist: ["transaction", "transactionKeyword"],
 }
 
 export const store = createStore(rootReducer, persistConfig);

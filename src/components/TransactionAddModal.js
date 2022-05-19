@@ -1,5 +1,7 @@
 import Component from "../core/Component.js";
 
+import KeywordBox from "./KeywordsBox.js";
+
 import { store } from "../store/store.js";
 import { addTransaction } from "../store/transaction/transaction.action.js";
 
@@ -31,8 +33,8 @@ export default class TransactionAddModal extends Component {
             <input type="date" class="date" name="date" id="date" required />
           </div>
           <div class="form-input">
-            <label for="category">분류</label>
-            <input type="category" class="category" name="category" id="category" autocomplete="off" required />
+            <label>분류</label>
+            <div class="KeywordBox" data-component="KeywordBox"></div>
           </div>
           <div class="form-input">
             <label for="amount">금액</label>
@@ -87,7 +89,7 @@ export default class TransactionAddModal extends Component {
     // 저장하기
     this.addEventListener("submit", ".transaction-form", (e) => {
       e.preventDefault();
-      const { type, date: fulldate, amount, title } = this.state;
+      const { type, date: fulldate, category, amount, title } = this.state;
       const [year, month, date] = fulldate.split("-");
       const { transactionData } = store.getState().transaction;
 
@@ -106,6 +108,25 @@ export default class TransactionAddModal extends Component {
 
       closeTransactionAddModal();
     });
+  }
+
+  generateChildComponent(target, name) {
+    switch(name) {
+      case "KeywordBox":
+        return new KeywordBox(target, () => {
+          const { setCategory } = this;
+          const { transactionKeywordList } = store.getState().transactionKeyword;
+
+          return {
+            keywordList: transactionKeywordList, 
+            keywordSelectListener: setCategory.bind(this),
+          }
+        });
+    }
+  }
+
+  setCategory(category) {
+    this.setState({ category });
   }
 
   shaking() {
