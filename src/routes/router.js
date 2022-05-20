@@ -4,4 +4,5 @@ export const router = new Router("/", {
   "/": "TransactionList",
   "transactionList": "TransactionList",
   "calendar": "Calendar",
+  "analytics": "Analytics",
 });

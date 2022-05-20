@@ -2,6 +2,7 @@ import Component from '../core/Component.js';
 
 import TransactionList from "../routes/TransactionList.js";
 import Calendar from "../routes/Calendar.js";
+import Analytics from '../routes/analytics.js';
 
 import { router } from '../routes/router.js';
 
@@ -20,6 +21,8 @@ export default class Main extends Component {
         return new TransactionList(target);
       case "Calendar":
         return new Calendar(target);
+      case "Analytics":
+        return new Analytics(target);
     }
   }
 }

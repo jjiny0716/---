@@ -1,6 +1,7 @@
 import Component from '../core/Component.js';
 
 import TransactionListOfDay from '../components/TransactionListOfDay.js';
+import DateRangeSelector from '../components/DateRangeSelector.js';
 
 import { store } from '../store/store.js';
 
@@ -17,21 +18,26 @@ export default class TransactionList extends Component {
   }
 
   template() {
-    const { startDate, endDate } = this.state;
     const dateList = this.getDateList();
 
     return `
-    <form>
-      <input type="date" class="date" name="date" id="date" value="${startDate}" data-type="startDate"/>
-      <span>~</span>
-      <input type="date" class="date" name="date" id="date" value="${endDate}" data-type="endDate"/>
-    </form>
+    <form class="DateRangeSelector" data-component="DateRangeSelector"></form>
     ${dateList.map((date) => `<div class="TransactionListOfDay" data-component="TransactionListOfDay" data-key=${date}></div>`).join('')}
     `;
   }
 
   generateChildComponent(target, name, key) {
     switch(name) {
+      case "DateRangeSelector":
+        return new DateRangeSelector(target, () => {
+          const { setDate } = this;
+          const { startDate, endDate } = this.state;
+          return {
+            dateChangeListener: setDate.bind(this),
+            startDate,
+            endDate,
+          }
+        });
       case "TransactionListOfDay":
         return new TransactionListOfDay(target, () => {
           const [year, month, date] = key.split('-');
@@ -44,12 +50,8 @@ export default class TransactionList extends Component {
     }
   }
 
-  setEvents() {
-    this.addEventListener('input', '.date', (e) => {
-      const { value: dateValue } = e.target;
-      const { type } = e.target.dataset;
-      this.setState({ [type]: dateValue });
-    });
+  setDate(type, value) {
+    this.setState({ [type]: value });
   }
 
   getDateList() {
