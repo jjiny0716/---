@@ -2,6 +2,7 @@ import Component from '../core/Component.js';
 
 import DateRangeSelector from '../components/DateRangeSelector.js';
 import DonutChart from "../components/DonutChart.js";
+import DonutChartLegend from '../components/DonutChartLegend.js';
 
 import { selectTotalAmountByCategoryMap } from '../store/transaction/transaction.selector.js';
 
@@ -20,6 +21,7 @@ export default class Analytics extends Component {
     return `
     <form class="DateRangeSelector" data-component="DateRangeSelector"></form>
     <div class="DonutChart" data-component="DonutChart"></div>
+    <div class="DonutChartLegend" data-component="DonutChartLegend"></div>
     `;
   }
 
@@ -42,6 +44,13 @@ export default class Analytics extends Component {
             listData: Object.values(totalAmountByCategoryMap),
           }
         });
+      case "DonutChartLegend":
+        return new DonutChartLegend(target, () => {
+          const { totalAmountByCategoryMap } = this.state;
+          return {
+            labelValueMap: totalAmountByCategoryMap,
+          }
+        })
     }
   }
 

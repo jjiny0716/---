@@ -4,10 +4,13 @@
  */
 import Component from "../core/Component.js";
 
+import { donutChartColor } from '../constants/donutChartColor.js';
+
 export default class DonutChart extends Component {
   template() {
+    const { listData } = this.props;
     return `
-    <div class="pie">${this.createPie()}</div>
+    ${listData && listData.length >= 1 ? `<div class="donut">${this.createPie()}</div>` : `<p class="no-data-warning">데이터가 없습니다.</p>`}
     `;
   }
 
@@ -45,14 +48,14 @@ export default class DonutChart extends Component {
     }
 
     const listTotal = listData.reduce((total, data) => total += data, 0);
+    listData.sort((a, b) => b - a);
     let offset = 0;
-    const color = ["cornflowerblue", "olivedrab", "orange", "tomato", "crimson", "purple", "turquoise", "forestgreen", "navy", "gray"];
-
+    
     const resultSlices = [];
     for (let i = 0; i < listData.length; i++) {
       const size = this.sliceSize(listData[i], listTotal);
 
-      this.iterateSlices(size, offset, i, 0, color[i], resultSlices);
+      this.iterateSlices(size, offset, i, 0, donutChartColor[i], resultSlices);
 
       offset += size;
     }

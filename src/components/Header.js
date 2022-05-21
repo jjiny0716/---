@@ -18,7 +18,7 @@ export default class Header extends Component {
     </a>
     <a href="analytics" data-component="RouterLink" data-key="Analytics" ${route === "Analytics" ? `class="active"` : ""}>
       <i class="fa-solid fa-chart-pie"></i>
-      통계
+      지출 통계
     </a>
     `;
   }

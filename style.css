@@ -199,7 +199,7 @@ body {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  z-index: 10;
+  z-index: 9;
   width: 50px;
   height: 50px;
   border: none;
@@ -223,6 +223,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 10;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
@@ -230,6 +231,7 @@ body {
 }
 
 .modal-content {
+  z-index: 11;
   padding: 30px;
   border-radius: 6px;
   background-color: #fff;
@@ -398,6 +400,7 @@ body {
   background-color: #000;
 }
 
+/* Analytics */
 .Analytics {
   display: flex;
   flex-direction: column;
@@ -405,7 +408,11 @@ body {
 }
 
 .Analytics .DateRangeSelector {
-  margin-bottom: 10px;
+  margin-bottom: 40px;
+}
+
+.Analytics .DonutChart {
+  margin-bottom: 30px;
 }
 
 /* DonutChart */
@@ -415,17 +422,37 @@ body {
   }
 }
 
-.pie {
-  height: 200px;
-  width: 200px;
+.DonutChart .no-data-warning {
+  font-size: 1.2rem;
+}
+
+.donut {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  box-shadow: 0 0 33px rgba(0, 0, 0, 0.2);
   position: relative;
+}
+
+.donut::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  background: #fff;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .slice {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  clip: rect(0px, 200px, 200px, 100px);
+  width: 300px;
+  height: 300px;
+  clip: rect(0px, 300px, 300px, 150px);
   animation: bake-pie 1s;
 }
 
@@ -435,8 +462,56 @@ body {
   top: 0;
   left: 0;
   background-color: black;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  clip: rect(0px, 200px, 200px, 100px);
+  clip: rect(0px, 300px, 300px, 150px);
+}
+
+/* DonutChartLegend */
+.DonutChartLegend {
+
+}
+
+/* DonutChartLegendBlock */
+.DonutChartLegendBlock {
+  padding: 10px;
+  border-radius: 6px;
+  margin: 10px 0;
+  color: var(--color-light-black);
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+}
+
+.DonutChartLegendBlock .label {
+  width: 90px;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.DonutChartLegendBlock .percentage {
+  width: 70px;
+  margin-right: 6px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.DonutChartLegendBlock .progress-bar-background {
+  width: 200px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #ddd;
+}
+
+.DonutChartLegendBlock .progress-bar {
+  width: 1px;
+  height: 10px;
+  border-radius: 5px;
+  transition: width 1000ms ease;
+}
+
+.DonutChartLegendBlock .amount {
+  width: 100px;
+  text-align: right;
 }

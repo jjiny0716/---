@@ -1,0 +1,1 @@
+export const donutChartColor = ["cornflowerblue", "olivedrab", "orange", "tomato", "crimson", "purple", "turquoise", "forestgreen", "navy", "gray"];
