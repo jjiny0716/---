@@ -15,14 +15,15 @@ export default class DonutChartLegend extends Component {
   }
 
   generateChildComponent(target, name, key) {
-    const { labelValueMap } = this.props;
-    const entry = Object.entries(labelValueMap).sort((a, b) => b[1] - a[1]);
-    const total = entry.reduce((total, [label, value]) => total += value, 0);
     
     switch(name) {
       case "DonutChartLegendBlock":
         return new DonutChartLegendBlock(target, () => {
+          const { labelValueMap } = this.props;
+          const entry = Object.entries(labelValueMap).sort((a, b) => b[1] - a[1]);
+          const total = entry.reduce((total, [label, value]) => total += value, 0);
           const [label, value] = entry[key];
+
           return {
             label,
             percentage: (value / total * 100).toFixed(2),

@@ -14,6 +14,10 @@ export default class DonutChart extends Component {
     `;
   }
 
+  beforeUpdate() {
+    this.target.innerHTML = "";
+  }
+
   sliceSize(dataNum, dataTotal) {
     return (dataNum / dataTotal) * 360;
   }
