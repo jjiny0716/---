@@ -14,8 +14,18 @@ export default class DonutChartLegend extends Component {
     `;
   }
 
-  generateChildComponent(target, name, key) {
+  setEvents() {
+    const { clickListener } = this.props;
     
+    this.addEventListener("click", ".DonutChartLegendBlock", (e) => {
+      const target = e.target.closest(".DonutChartLegendBlock");
+      const { labelValueMap } = this.props;
+      const index = target.dataset.key;
+      clickListener(Object.entries(labelValueMap).sort((a, b) => b[1] - a[1])[index]);
+    })
+  } 
+
+  generateChildComponent(target, name, key) {
     switch(name) {
       case "DonutChartLegendBlock":
         return new DonutChartLegendBlock(target, () => {

@@ -3,6 +3,7 @@
   --color-red: #ff3b30;
   --color-blue: #0a84ff;
   --shadow-light: 0 0 12px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 0px 8px rgba(0, 0, 0, 0.25);
 }
 
 *,
@@ -476,12 +477,14 @@ body {
 /* DonutChartLegendBlock */
 .DonutChartLegendBlock {
   padding: 10px;
+  border: 1px solid transparent;
   border-radius: 6px;
   margin: 10px 0;
   color: var(--color-light-black);
   background-color: #f5f5f5;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .DonutChartLegendBlock .label {
@@ -514,4 +517,9 @@ body {
 .DonutChartLegendBlock .amount {
   width: 100px;
   text-align: right;
+}
+
+.DonutChartLegendBlock:hover {
+  border-color: #aaa;
+  box-shadow: var(--shadow-medium);
 }
