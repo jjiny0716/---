@@ -20,4 +20,14 @@ export default class DateRangeSelector extends Component {
       if (dateChangeListener) dateChangeListener(type, value);
     })
   }
+
+  afterMount() {
+    this.initInputValue();
+  }
+
+  initInputValue() {
+    const { startDate, endDate } = this.props;
+    this.target.querySelector('[data-type="startDate"]').value = startDate;
+    this.target.querySelector('[data-type="endDate"]').value = endDate;
+  }
 }
