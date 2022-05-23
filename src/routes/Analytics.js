@@ -5,19 +5,25 @@ import DonutChart from "../components/DonutChart.js";
 import DonutChartLegend from "../components/DonutChartLegend.js";
 import CategoryTransactionModal from '../components/CategoryTransactionModal.js';
 
+import { ONE_DAY_VALUE } from '../constants/dateValue.js';
+
 import { selectTotalAmountByCategoryMap } from "../store/transaction/transaction.selector.js";
 
 export default class Analytics extends Component {
   setup() {
     const today = new Date();
+    const lastMonth = new Date(today.getTime() - (ONE_DAY_VALUE * 30));
 
     this.state = {
-      startDate: today.toISOString().split("T")[0],
+      startDate: lastMonth.toISOString().split("T")[0],
       endDate: today.toISOString().split("T")[0],
       totalAmountByCategoryMap: {},
       isCategoryTransactionModalOpen: false,
       selectedCategory: undefined,
     };
+
+    const { startDate, endDate } = this.state;
+    this.state.totalAmountByCategoryMap = selectTotalAmountByCategoryMap(startDate, endDate);
   }
 
   template() {

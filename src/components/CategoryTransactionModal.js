@@ -9,7 +9,6 @@ export default class CategoryTransactionModal extends Component {
     const { startDate, endDate, category } = this.props;
 
     this.state = {
-      shaking: false,
       transactionList: selectTransactionList(startDate, endDate, category),
     };
   }
@@ -42,18 +41,17 @@ export default class CategoryTransactionModal extends Component {
   setEvents() {
     const { closeModal } = this.props;
 
+    this.addEventListener("click", ".modal-overlay", (e) => {
+      if (e.target.classList.contains("modal-overlay")) {
+        closeModal();
+      }
+    });
+
     this.addEventListener("click", ".close-modal-button", (e) => {
       const target = e.target.closest(".close-modal-button");
       if (target.classList.contains("close-modal-button")) {
         closeModal();
       }
     });
-  }
-
-  shaking() {
-    this.setState({ shaking: true });
-    setTimeout(() => {
-      this.setState({ shaking: false });
-    }, 500);
   }
 }

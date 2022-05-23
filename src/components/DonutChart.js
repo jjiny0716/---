@@ -9,13 +9,22 @@ import { donutChartColor } from '../constants/donutChartColor.js';
 export default class DonutChart extends Component {
   template() {
     const { listData } = this.props;
+
     return `
     ${listData && listData.length >= 1 ? `<div class="donut">${this.createPie()}</div>` : `<p class="no-data-warning">데이터가 없습니다.</p>`}
     `;
   }
 
+  afterMount() {
+    this.lastListData = [...this.props.listData];
+  }
+
   beforeUpdate() {
-    this.target.innerHTML = "";
+    if (JSON.stringify(this.lastListData) !== JSON.stringify(this.props.listData)) this.target.innerHTML = "";
+  }
+
+  afterUpdate() {
+    this.lastListData = [...this.props.listData];
   }
 
   sliceSize(dataNum, dataTotal) {
@@ -46,13 +55,13 @@ export default class DonutChart extends Component {
   }
 
   createPie() {
-    const { listData } = this.props; 
+    let { listData } = this.props; 
     if (listData.some((data) => typeof data !== "number" || isNaN(data))) {
       throw new Error("'DonutChart' 컴포넌트는의 listData는 number형 원소만을 갖는 배열이어야 합니다");
     }
 
     const listTotal = listData.reduce((total, data) => total += data, 0);
-    listData.sort((a, b) => b - a);
+    listData = [...listData].sort((a, b) => b - a);
     let offset = 0;
     
     const resultSlices = [];

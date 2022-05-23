@@ -3,14 +3,17 @@ import Component from '../core/Component.js';
 import TransactionListOfDay from '../components/TransactionListOfDay.js';
 import DateRangeSelector from '../components/DateRangeSelector.js';
 
+import { ONE_DAY_VALUE } from '../constants/dateValue.js';
+
 import { store } from '../store/store.js';
 
 export default class TransactionList extends Component {
   setup() {
     const today = new Date();
+    const lastWeek = new Date(today.getTime() - (ONE_DAY_VALUE * 7));
 
     this.state = {
-      startDate: today.toISOString().split('T')[0],
+      startDate: lastWeek.toISOString().split('T')[0],
       endDate: today.toISOString().split('T')[0],
     }
 

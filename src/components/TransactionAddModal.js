@@ -30,7 +30,7 @@ export default class TransactionAddModal extends Component {
         <form class="transaction-form">
           <div class="form-input">
             <label for="date">날짜</label>
-            <input type="date" class="date" name="date" id="date" required />
+            <input type="date" class="date" name="date" id="date" required min=1970-01-01  max="2100-01-01" />
           </div>
           <div class="form-input">
             <label>분류</label>
@@ -92,6 +92,11 @@ export default class TransactionAddModal extends Component {
       const { type, date: fulldate, category, amount, title } = this.state;
       const [year, month, date] = fulldate.split("-");
       const { transactionData } = store.getState().transaction;
+
+      if (isNaN(amount)) {
+        alert("금액엔 숫자만 입력할 수 있습니다.");
+        return;
+      }
 
       store.dispatch(
         addTransaction({

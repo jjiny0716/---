@@ -1,0 +1,1 @@
+export const ONE_DAY_VALUE = 1000 * 60 * 60 * 24;
