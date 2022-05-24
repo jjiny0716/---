@@ -4,6 +4,7 @@ import KeywordBox from "./KeywordsBox.js";
 
 import { store } from "../store/store.js";
 import { addTransaction } from "../store/transaction/transaction.action.js";
+import { setTransactionKeywordList } from '../store/transactionKeyword/transactionKeyword.action.js';
 
 export default class TransactionAddModal extends Component {
   setup() {
@@ -82,6 +83,7 @@ export default class TransactionAddModal extends Component {
     // form input value 변경 업데이트
     this.addEventListener("input", ".transaction-form", ({ target }) => {
       const { name, value } = target;
+      if (!name) return;
 
       this.setState({ [name]: value });
     });
@@ -119,12 +121,13 @@ export default class TransactionAddModal extends Component {
     switch(name) {
       case "KeywordBox":
         return new KeywordBox(target, () => {
-          const { setCategory } = this;
+          const { setCategory, changeTransactionKeywordList } = this;
           const { transactionKeywordList } = store.getState().transactionKeyword;
 
           return {
             keywordList: transactionKeywordList, 
             keywordSelectListener: setCategory.bind(this),
+            keywordListChangeListener: changeTransactionKeywordList.bind(this),
           }
         });
     }
@@ -132,6 +135,10 @@ export default class TransactionAddModal extends Component {
 
   setCategory(category) {
     this.setState({ category });
+  }
+
+  changeTransactionKeywordList(keywordList) {
+    store.dispatch(setTransactionKeywordList(keywordList));
   }
 
   shaking() {
