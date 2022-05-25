@@ -17,7 +17,10 @@ export default class KeywordBox extends Component {
     const { keywordList, selectedIndex, mode } = this.state;
     
     return `
-    ${keywordList.map((keyword, i) => `<div class="round-box ${i === selectedIndex ? "active" : ""}">${keyword}</div>`).join('')}
+    ${keywordList.map((keyword, i) => `<div class="round-box ${i === selectedIndex ? "active" : ""}" data-keyword=${keyword}>
+      ${keyword}
+      ${mode === KEYWORD_BOX_MODE.DELETE ? `<i class="delete-icon fa-solid fa-minus"></i>` : ""}
+    </div>`).join('')}
     ${mode === KEYWORD_BOX_MODE.ADD ? `
     <form class="keyword-input-form">
       <input class="keyword-input" type="text" maxlength="6" autocomplete="off" />
@@ -37,15 +40,18 @@ export default class KeywordBox extends Component {
       e.preventDefault();
     })
 
-    // keyword 선택
+    // keyword 선택 (제거모드시 제거)
     this.addEventListener("click", ".round-box", (e) => {
-      const { keywordSelectListener } = this.props || {};
-      const { keywordList } = this.state;
-      const { textContent: selectedKeyword } = e.target;
+      const target = e.target.closest(".round-box");
+      const { mode } = this.state;
+      const { keyword: selectedKeyword } = target.dataset;
 
-      this.setState({ selectedIndex: keywordList.findIndex((keyword) => keyword === selectedKeyword) });
-
-      if (keywordSelectListener) keywordSelectListener(selectedKeyword);
+      switch(mode) {
+        case KEYWORD_BOX_MODE.SELECT:
+          this.selectKeyword(selectedKeyword);
+        case KEYWORD_BOX_MODE.DELETE:
+          this.deleteKeyword(selectedKeyword);
+      }
     });
 
     // mode 변경
@@ -87,15 +93,37 @@ export default class KeywordBox extends Component {
     }
   }
 
+  selectKeyword(selectedKeyword) {
+    const { keywordSelectListener } = this.props || {};
+    const { keywordList } = this.state;
+
+    this.setState({ selectedIndex: keywordList.findIndex((keyword) => keyword === selectedKeyword) });
+
+    if (keywordSelectListener) keywordSelectListener(selectedKeyword);
+  }
+
   addKeyword(newKeyword) {
     if (this.state.mode !== KEYWORD_BOX_MODE.ADD) return;
     this.setState({ mode: KEYWORD_BOX_MODE.SELECT });
 
     const { keywordList, keywordListChangeListener } = this.props;
-    if (keywordList.find((keyword) => keyword === newKeyword) !== undefined) return;
+    if (!newKeyword || keywordList.find((keyword) => keyword === newKeyword) !== undefined) return;
     const newKeywordList = [...keywordList, newKeyword];
     if (keywordListChangeListener) keywordListChangeListener(newKeywordList);
 
+    this.setState({ keywordList: newKeywordList });
+  }
+
+  deleteKeyword(keywordToDelete) {
+    if (this.state.mode !== KEYWORD_BOX_MODE.DELETE) return;
+    const { keywordList, keywordListChangeListener } = this.props;
+
+    const keywordIndex = keywordList.findIndex((keyword) => keyword === keywordToDelete);
+    if (keywordIndex === -1) return;
+    const newKeywordList = [...keywordList];
+    newKeywordList.splice(keywordIndex, 1);
+
+    if (keywordListChangeListener) keywordListChangeListener(newKeywordList);
     this.setState({ keywordList: newKeywordList });
   }
 }
