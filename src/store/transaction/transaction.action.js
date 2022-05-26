@@ -19,3 +19,13 @@ function addTransactionHelper({ transactionData, year, month, date, type, catego
 
   return { ...transactionData };
 }
+
+export function deleteTransaction(transactionData, year, month, date, transactionIndex) {
+  return createAction(TRANSACTION_ACTION_TYPES.SET_TRANSACTION_DATA, deleteTransactionHelper(transactionData, year, month, date, transactionIndex));
+}
+
+function deleteTransactionHelper(transactionData, year, month, date, transactionIndex) {
+  transactionData[year][month][date].splice(transactionIndex, 1);
+
+  return { ...transactionData };
+}

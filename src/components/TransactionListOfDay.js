@@ -4,6 +4,8 @@ import TransactionBox from './TransactionBox.js';
 
 import { store } from '../store/store.js';
 
+import { deleteTransaction } from '../store/transaction/transaction.action.js';
+
 export default class TransactionListOfDay extends Component {
   template() {
     const { year, month, date } = this.props;
@@ -21,12 +23,21 @@ export default class TransactionListOfDay extends Component {
       case "TransactionBox":
         return new TransactionBox(target, () => {
           const { year, month, date } = this.props;
+          const { deleteTransaction } = this;
           const { transactionData } = store.getState().transaction;
           const transaction = transactionData[year][month][date][key];
           return {
             transaction,
+            transactionIndex: key,
+            deleteButtonClickListener: deleteTransaction.bind(this),
           }
         });
     }
+  }
+
+  deleteTransaction(transactionIndex) {
+    const { year, month, date } = this.props;
+    const { transactionData } = store.getState().transaction;
+    store.dispatch(deleteTransaction(transactionData, year, month, date, transactionIndex));
   }
 }

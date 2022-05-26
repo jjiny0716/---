@@ -66,7 +66,7 @@ export default class TransactionList extends Component {
     const dateList = [];
     for (let date = endDate ; date >= startDate ; date.setDate(date.getDate() - 1)) {
       const [month, day, year] = date.toLocaleDateString('en-US').split('/');
-      if (transactionData[year]?.[month]?.[day]) dateList.push(`${year}-${month}-${day}`);
+      if (transactionData[year]?.[month]?.[day] && transactionData[year]?.[month]?.[day].length > 0) dateList.push(`${year}-${month}-${day}`);
     } 
 
     return dateList;
