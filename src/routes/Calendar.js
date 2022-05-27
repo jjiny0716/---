@@ -38,6 +38,7 @@ export default class Calendar extends Component {
           ({ isCurrentMonth, date }, i) => `<div class="date-cell ${isCurrentMonth ? "" : "blur"}">
         <span class="date-label ${i % 7 === 0 ? "holyday" : ""}">${date}</span>
         <div class="amount-labels">${this.createTransactionLabelsOfDate(isCurrentMonth, date)}</div>
+        ${this.createDot(isCurrentMonth, date)}
       </div>`
         )
         .join("")}
@@ -115,6 +116,22 @@ export default class Calendar extends Component {
     ${total.expenditure ? `<span class="expenditure-label">-${total.expenditure}</span>` : ""}
     ${total.income && total.expenditure ? `<span class="total-label">${total.income - total.expenditure}</span>` : ""}
     `
+  }
+
+  createDot(isCurrentMonth, date) {
+    const { year, month } = this.state;
+    const { transactionData } = store.getState().transaction;
+
+    if (!isCurrentMonth || !transactionData[year] || !transactionData[year][month] || !transactionData[year][month][date]) return "";
+
+    const transactionListOfDate = transactionData[year][month][date]
+    let total = 0;
+
+    for (let { type, amount } of transactionListOfDate) {
+      total += Number(amount) * (type === "income" ? 1 : -1);
+    }
+  
+    return total !== 0 ? `<div class="dot ${total < 0 ? "red" : "blue"}"></div>` : "";
   }
 
   prevMonth() {

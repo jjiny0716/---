@@ -1,7 +1,7 @@
 :root {
   --color-light-black: #333;
   --color-red: #ff3b30;
-  --color-green: #30D158;
+  --color-green: #30d158;
   --color-blue: #0a84ff;
   --shadow-light: 0 0 12px rgba(0, 0, 0, 0.2);
   --shadow-medium: 0 0px 8px rgba(0, 0, 0, 0.25);
@@ -19,12 +19,13 @@ body {
 }
 
 .wrap {
-  width: 100%;
+  /* width: 100%; */
 }
 
 /* Header */
 .Header {
   padding: 20px;
+  text-align: center;
   display: flex;
   justify-content: center;
 }
@@ -34,6 +35,7 @@ body {
   border-radius: 5px;
   margin: 0 10px;
   font-size: 1.2rem;
+  white-space: nowrap;
   text-decoration: none;
   color: #999;
   transition: all 250ms ease;
@@ -51,7 +53,7 @@ body {
 
 /* Main */
 .Main {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,6 +141,7 @@ body {
   margin-bottom: 25px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .Calendar .header .month-controls button {
@@ -194,6 +197,11 @@ body {
   justify-content: space-between;
 }
 
+.Calendar .date-grid .date-cell.blur {
+  opacity: 0.4;
+}
+
+
 .Calendar .date-grid .date-cell .amount-labels {
   display: flex;
   flex-direction: column;
@@ -208,9 +216,22 @@ body {
   color: var(--color-red);
 }
 
-.Calendar .date-grid .date-cell.blur {
-  opacity: 0.4;
+.Calendar .date-grid .date-cell .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  align-self: flex-end;
+  display: none;
 }
+
+.Calendar .date-grid .date-cell .dot.red {
+  background-color: var(--color-red);
+}
+
+.Calendar .date-grid .date-cell .dot.blue {
+  background-color: var(--color-blue);
+}
+
 
 /* TransactionAddButton */
 .transaction-add-button {
@@ -225,7 +246,7 @@ body {
   box-shadow: var(--shadow-light);
   font-size: 1.7rem;
   color: var(--color-light-black);
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: background-color 250ms ease;
 }
@@ -456,11 +477,11 @@ body {
 
 .KeywordBox .edit-button.delete {
   right: 0;
-} 
+}
 
 .KeywordBox .edit-button.delete.active {
   color: var(--color-red);
-} 
+}
 
 .KeywordBox .keyword-input-form .keyword-input {
   width: 150px;
@@ -473,9 +494,9 @@ body {
   font-family: "Noto Sans KR", sans-serif;
 }
 
-
 /* Analytics */
 .Analytics {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -501,11 +522,12 @@ body {
 }
 
 .donut {
+  position: relative;
   height: 300px;
   width: 300px;
   border-radius: 50%;
   box-shadow: 0 0 33px rgba(0, 0, 0, 0.2);
-  position: relative;
+  overflow: hidden;
 }
 
 .donut::before {
@@ -542,9 +564,10 @@ body {
   clip: rect(0px, 300px, 300px, 150px);
 }
 
-/* DonutChartLegend */
 .DonutChartLegend {
-
+  width: 100%;
+  max-width: 550px;
+  padding: 0 10px;
 }
 
 /* DonutChartLegendBlock */
@@ -561,20 +584,21 @@ body {
 }
 
 .DonutChartLegendBlock .label {
-  width: 90px;
+  min-width: 90px;
   margin-right: 10px;
   text-align: right;
+  white-space: nowrap;
 }
 
 .DonutChartLegendBlock .percentage {
-  width: 70px;
+  min-width: 70px;
   margin-right: 6px;
   font-weight: 500;
   text-align: center;
 }
 
 .DonutChartLegendBlock .progress-bar-background {
-  width: 200px;
+  width: 100%;
   height: 10px;
   border-radius: 5px;
   background-color: #ddd;
@@ -588,11 +612,139 @@ body {
 }
 
 .DonutChartLegendBlock .amount {
-  width: 100px;
+  min-width: 100px;
   text-align: right;
 }
 
 .DonutChartLegendBlock:hover {
   border-color: #aaa;
   box-shadow: var(--shadow-medium);
+}
+
+@media screen and (max-width: 767px) {
+  /* Header */
+  .Header a {
+    margin: 0 5px;
+    font-size: 1.05rem;
+  }
+
+  /* DataRangeSelector */
+  .DateRangeSelector input {
+    padding: 5px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: "Noto Sans KR", sans-serif;
+  }
+
+  .DateRangeSelector span {
+    margin: 0 4px;
+    font-size: 1.4rem;
+  }
+
+  .Calendar .header {
+    margin-bottom: 10px;
+  }
+
+  .Calendar .header .month-controls {
+    margin-bottom: 10px;
+  }
+
+  .Calendar .header .month-controls button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .Calendar .header .month-controls .current-date {
+    font-size: 1.6rem;
+    line-height: 50px;
+  }
+
+  .Calendar .header .month-labels {
+    font-size: 1.15rem;
+    font-weight: 500;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .Calendar .date-grid .date-cell .amount-labels {
+    display: none;
+  }
+
+  .Calendar .date-grid .date-cell .dot {
+    display: block;
+  }
+
+  /* DonutChart */
+  .donut {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    box-shadow: 0 0 33px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  .donut::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 125px;
+    height: 125px;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .slice {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    clip: rect(0px, 250px, 250px, 125px);
+    animation: bake-pie 1s;
+  }
+
+  .slice span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    clip: rect(0px, 250px, 250px, 125px);
+  }
+
+  /* DonutChartLegendBlock */
+  .DonutChartLegendBlock {
+    font-size: 0.85rem;
+  }
+
+  .DonutChartLegendBlock .label {
+    min-width: 80px;
+  }
+
+  .DonutChartLegendBlock .percentage {
+    min-width: 55px;
+  }
+
+  .DonutChartLegendBlock .amount {
+    min-width: 85px;
+    text-align: right;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  /* Calendar */
+  .Calendar {
+    width: 100%;
+    aspect-ratio: 1.4;
+    padding: 20px;
+  }
 }
