@@ -8,7 +8,7 @@ export default class TransactionBox extends Component {
     return `
     <span class="title">${title}</span>
     <span class="amount ${type === "income" ? "income" : "expenditure"}"> 
-      ${type === "income" ? "" : "-"}${amount}
+      ${type === "income" ? "+" : "-"}${amount}
     </span>
     ${deleteButtonClickListener ? `<button class="delete-transaction-button"><i class="fa-solid fa-xmark"></i></button>` : ""}
     `;

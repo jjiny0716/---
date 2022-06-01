@@ -31,7 +31,7 @@ export default class TransactionAddModal extends Component {
         <form class="transaction-form">
           <div class="form-input">
             <label for="date">날짜</label>
-            <input type="date" class="date" name="date" id="date" required min=1970-01-01  max="2100-01-01" />
+            <input type="date" class="date" name="date" id="date" value=${new Date().toISOString().split('T')[0]} required min=1970-01-01  max="2100-01-01" />
           </div>
           <div class="form-input">
             <label>분류</label>
