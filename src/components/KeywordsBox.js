@@ -5,7 +5,7 @@ import { KEYWORD_BOX_MODE } from '../constants/keywordBox.js';
 export default class KeywordBox extends Component {
   setup() {
     const { keywordList } = this.props;
-    
+
     this.state = {
       keywordList,
       selectedIndex: -1,
@@ -15,7 +15,7 @@ export default class KeywordBox extends Component {
 
   template() {
     const { keywordList, selectedIndex, mode } = this.state;
-    
+
     return `
     ${keywordList.map((keyword, i) => `<div class="round-box ${i === selectedIndex ? "active" : ""}" data-keyword=${keyword}>
       ${keyword}
@@ -86,11 +86,13 @@ export default class KeywordBox extends Component {
   }
 
   afterUpdate() {
+    const { keywordList } = this.props;
     const { mode } = this.state;
 
     if (mode === KEYWORD_BOX_MODE.ADD) {
       this.target.querySelector(".keyword-input").focus();
     }
+    this.setState({ keywordList });
   }
 
   selectKeyword(selectedKeyword) {

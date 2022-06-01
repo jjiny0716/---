@@ -112,9 +112,9 @@ export default class Calendar extends Component {
     }
 
     return `
-    ${total.income ? `<span class="income-label">${total.income}</span>` : ""}
+    ${total.income ? `<span class="income-label">+${total.income}</span>` : ""}
     ${total.expenditure ? `<span class="expenditure-label">-${total.expenditure}</span>` : ""}
-    ${total.income && total.expenditure ? `<span class="total-label">${total.income - total.expenditure}</span>` : ""}
+    ${total.income && total.expenditure ? `<span class="total-label">${total.income - total.expenditure < 0 ? '-' : '+'}${total.income - total.expenditure}</span>` : ""}
     `
   }
 

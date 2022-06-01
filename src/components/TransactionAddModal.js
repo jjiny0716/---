@@ -4,7 +4,7 @@ import KeywordBox from "./KeywordsBox.js";
 
 import { store } from "../store/store.js";
 import { addTransaction } from "../store/transaction/transaction.action.js";
-import { setTransactionKeywordList } from '../store/transactionKeyword/transactionKeyword.action.js';
+import { setIncomeTransactionKeywordList, setExpenditureTransactionKeywordList } from '../store/transactionKeyword/transactionKeyword.action.js';
 
 export default class TransactionAddModal extends Component {
   setup() {
@@ -13,8 +13,8 @@ export default class TransactionAddModal extends Component {
       type: "expenditure",
       date: "",
       category: "",
-      amount: "",
       title: "",
+      amount: "",
     };
   }
 
@@ -38,12 +38,12 @@ export default class TransactionAddModal extends Component {
             <div class="KeywordBox" data-component="KeywordBox"></div>
           </div>
           <div class="form-input">
-            <label for="amount">금액</label>
-            <input type="text" class="amount" name="amount" id="amount" maxlength="12" autocomplete="off" required />
-          </div>
-          <div class="form-input">
             <label for="title">내용</label>
             <input type="text" class="title" name="title" id="title" maxlength="15" required />
+          </div>
+          <div class="form-input">
+            <label for="amount">금액</label>
+            <input type="text" class="amount" name="amount" id="amount" maxlength="12" autocomplete="off" required />
           </div>
           <button type="submit" class="save-button">저장하기</button>
         </form>
@@ -108,8 +108,8 @@ export default class TransactionAddModal extends Component {
           date,
           category,
           type,
-          amount,
           title,
+          amount,
         })
       );
 
@@ -122,10 +122,11 @@ export default class TransactionAddModal extends Component {
       case "KeywordBox":
         return new KeywordBox(target, () => {
           const { setCategory, changeTransactionKeywordList } = this;
-          const { transactionKeywordList } = store.getState().transactionKeyword;
+          const { type } = this.state;
+          const { incomeTransactionKeywordList, expenditureTransactionKeywordList } = store.getState().transactionKeyword;
 
           return {
-            keywordList: transactionKeywordList, 
+            keywordList: type === "income" ? incomeTransactionKeywordList : expenditureTransactionKeywordList, 
             keywordSelectListener: setCategory.bind(this),
             keywordListChangeListener: changeTransactionKeywordList.bind(this),
           }
@@ -138,7 +139,8 @@ export default class TransactionAddModal extends Component {
   }
 
   changeTransactionKeywordList(keywordList) {
-    store.dispatch(setTransactionKeywordList(keywordList));
+    const { type } = this.state;
+    store.dispatch(type === "income" ? setIncomeTransactionKeywordList(keywordList) : setExpenditureTransactionKeywordList(keywordList));
   }
 
   shaking() {

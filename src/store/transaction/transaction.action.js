@@ -5,7 +5,7 @@ export function addTransaction(transaction) {
   return createAction(TRANSACTION_ACTION_TYPES.SET_TRANSACTION_DATA, addTransactionHelper(transaction));
 }
 
-function addTransactionHelper({ transactionData, year, month, date, type, category, amount, title }) {
+function addTransactionHelper({ transactionData, year, month, date, type, category, title, amount }) {
   // leading zero 제거
   month = parseInt(month, 10).toString();
   date = parseInt(date, 10).toString();
